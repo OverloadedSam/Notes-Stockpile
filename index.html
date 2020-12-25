@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Note Stockpile</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="CSS/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="CSS/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="CSS/favicon-16x16.png">
+    <link rel="manifest" href=  "CSS/site.webmanifest">
+    <link rel="stylesheet" href="CSS/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-light bg-danger">
+      <div class="container-fluid">
+        <a id="logo" class="navbar-brand ms-5"> Note Stockpile</a>
+        <form class="d-flex">
+          <input
+            id="search"
+            class="form-control me-2"
+            type="search"
+            placeholder="Search notes"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-light">Search</button>
+        </form>
+      </div>
+    </nav>
+
+    <div class="container my-4">
+      <h1>Welcome to Note Stockpile!</h1>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title my-3">Save your note here &darr;</h5>
+          <div class="form-floating">
+            <textarea
+              id="noteText"
+              class="form-control"
+              placeholder="text"
+              id="floatingTextarea"
+            ></textarea>
+            <label for="floatingTextarea">Your text goes here...</label>
+          </div>
+          <button id="addNoteBtn" class="btn btn-danger my-3">Save Note</button>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="container">Your Notes</h1>
+
+    <div id="notesArea" class="container row ms-auto me-auto"></div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script>
+    <script src="JS/engine.js"></script>
+  </body>
+</html>
