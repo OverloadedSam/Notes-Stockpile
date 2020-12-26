@@ -3,24 +3,40 @@ displayNotes();
 
 let addNoteBtn = document.getElementById("addNoteBtn");
 let noteText = document.getElementById("noteText");
+let titleText = document.getElementById("titleText");
+titleText.value = "Title";
+// console.log(titleText);
 
 // Add notes to local storage
 addNoteBtn.addEventListener("click", () => {
     let savedNotesArr;
+    let savedTitles;
+    let titles = localStorage.getItem("savedTitles");
     let savedNotes = localStorage.getItem("savedNotes");
     if (savedNotes == null) {
         savedNotesArr = [];
+        savedTitles = [];
     } else {
         savedNotesArr = JSON.parse(savedNotes);
+        if (titles == null) {
+            savedTitles = [];
+        }
+        else {
+            savedTitles = JSON.parse(titles);
+        }
     }
 
-    if (noteText.value.trim() == "") {
-        alert("Note is empty!");
+    if (noteText.value.trim() == "" || titleText.value.trim() == "") {
+        alert("🚫 Note or Title is empty! 🚫");
         noteText.value = "";
+        titleText.value = "Title";
     } else {
+        savedTitles.push(titleText.value);
         savedNotesArr.push(noteText.value);
         localStorage.setItem("savedNotes", JSON.stringify(savedNotesArr));
+        localStorage.setItem("savedTitles", JSON.stringify(savedTitles));
         noteText.value = "";
+        titleText.value = "Title";
         displayNotes();
     }
 });
@@ -28,20 +44,29 @@ addNoteBtn.addEventListener("click", () => {
 
 //Displays the notes.
 function displayNotes() {
-    let savedNotes = localStorage.getItem("savedNotes");
+    let savedTitles;
     let savedNotesArr;
+    let titles = localStorage.getItem("savedTitles");
+    let savedNotes = localStorage.getItem("savedNotes");
     if (savedNotes == null) {
         savedNotesArr = [];
+        savedTitles = [];
     } else {
         savedNotesArr = JSON.parse(savedNotes);
+        if (titles == null) {
+            savedTitles = [];
+        } else {
+            savedTitles = JSON.parse(titles);
+        }
     }
 
     let allNotesHTML = "";
     savedNotesArr.forEach((element, index) => {
+        const T = savedTitles[index];
         allNotesHTML += `
       <div class="container-fluid card my-2 mx-auto savedNotesElems" style="width: 18rem;" >
         <div class="card-body">
-          <h5 class="card-title">Note no. ${index + 1} </h5>
+          <h5 class="card-title"> ${T} </h5>
           <p class="card-text">${element}</p>
           <button id="${index}" onclick="delNote(this.id)" class="btn btn-danger">Delete Note</button>
         </div>
@@ -58,12 +83,17 @@ function displayNotes() {
 
 // Deletes a saved note from the local storage
 function delNote(index) {
-    let decision = confirm(`You are about to delete Note no. ${parseInt(index) + 1} click "OK" to proceed.`);
+    let savedTitles = JSON.parse(localStorage.getItem("savedTitles"));
+    let decision = confirm(`⚠️ You are about to delete "${savedTitles[parseInt(index)]}".\nClick 'OK' to proceed.`);
     if (decision) {
         let savedNotes = localStorage.getItem("savedNotes");
+        let titles = localStorage.getItem("savedTitles");
         savedNotesArr = JSON.parse(savedNotes);
+        savedTitles = JSON.parse(titles);
         savedNotesArr.splice(index, 1);
+        savedTitles.splice(index, 1);
         localStorage.setItem("savedNotes", JSON.stringify(savedNotesArr));
+        localStorage.setItem("savedTitles", JSON.stringify(savedTitles));
     }
     displayNotes();
 }

@@ -11,3 +11,8 @@
 #noteText{
     height: 7rem;
 }
+
+#addon-wrapping{
+    font-family: 'Lora', serif;
+    font-weight: 800;
+}
