@@ -67,9 +67,11 @@ function displayNotes() {
       <div class="container-fluid card my-2 mx-auto savedNotesElems" style="width: 18rem;" >
         <div class="card-body">
           <h5 class="card-title"> ${T} </h5>
-          <p class="card-text">${element}</p>
-          <button id="${index}" onclick="delNote(this.id)" class="btn btn-danger">Delete Note</button>
         </div>
+        <div class="scrollable">
+          <p class="card-text scrollable">${element}</p>
+        </div>         
+        <button id="${index}" onclick="delNote(this.id)" class="btn btn-danger my-3">Delete Note</button>
       </div>`;
     });
 
