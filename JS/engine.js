@@ -5,7 +5,6 @@ let addNoteBtn = document.getElementById("addNoteBtn");
 let noteText = document.getElementById("noteText");
 let titleText = document.getElementById("titleText");
 titleText.value = "Title";
-// console.log(titleText);
 
 // Add notes to local storage
 addNoteBtn.addEventListener("click", () => {
@@ -37,6 +36,7 @@ addNoteBtn.addEventListener("click", () => {
         localStorage.setItem("savedTitles", JSON.stringify(savedTitles));
         noteText.value = "";
         titleText.value = "Title";
+        showMessage("success", "Your note has been saved");
         displayNotes();
     }
 });
@@ -79,7 +79,9 @@ function displayNotes() {
     if (savedNotesArr.length != 0) {
         notesArea.innerHTML = allNotesHTML;
     } else {
-        notesArea.innerHTML = `<b><i>Looks like you haven't saved a note yet. Try to type your note and click "Save Note" button to save!</i></b>`;
+        // notesArea.innerHTML = `<div class="container noNotes" > <b><i> Your notes will appear here</b></i> <b><i>Looks like you haven't saved a note yet. Try to type your note and click "Save Note" button to save!</i></b> </div>`;
+        notesArea.innerHTML = `<div class="container mt-2 noNotes" > <p>Your notes will appear here.</p> <p>Looks like you haven't saved a note yet. Try to type your note and click "Save Note" button to save!</p> </div>`;
+        // notesArea.innerHTML = `<b><i>Looks like you haven't saved a note yet. Try to type your note and click "Save Note" button to save!</i></b>`;
     }
 }
 
@@ -96,10 +98,24 @@ function delNote(index) {
         savedTitles.splice(index, 1);
         localStorage.setItem("savedNotes", JSON.stringify(savedNotesArr));
         localStorage.setItem("savedTitles", JSON.stringify(savedTitles));
+        showMessage("danger", "Your note has been deleted");
     }
     displayNotes();
 }
 
+function showMessage(color, msg){
+    let msgAlert = document.querySelector("div.container");
+    let newEle = document.createElement("div");
+    newEle.setAttribute("class", `alert alert-${color} alert-dismissible fade show`);
+    newEle.setAttribute("role", "alert");
+    newEle.innerHTML = `<strong>Done!</strong> ${msg}.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>`;
+    msgAlert.insertBefore(newEle, msgAlert.children[1]);
+
+    setTimeout(() => {
+        newEle.style.display = "none";
+    }, 4000);
+}
 
 let searchEle = document.getElementById("search");
 // Searches notes that matches to the search term and displays them
